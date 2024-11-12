@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary to Text Decoder</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Dark Theme Background */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+        }
+
+        /* Main Container Styling */
+        .container {
+            background-color: #34495e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #e67e22;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        /* Styled Textarea */
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            resize: vertical;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        /* Styled Button */
+        button {
+            background-color: #e67e22;
+            color: #ffffff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #d35400;
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            color: #ecf0f1;
+            font-size: 1.4em;
+            margin-top: 20px;
+        }
+
+        /* Output Box Styling */
+        #textOutput {
+            background-color: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #34495e;
+            color: #95a5a6;
+            font-size: 0.95em;
+            word-break: break-word;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            textarea {
+                height: 100px;
+            }
+        }
+    </style>
+    <script>
+        function decodeFromBinary() {
+            const binaryInput = document.getElementById("binaryInput").value;
+            let textOutput = "";
+            const binaryArray = binaryInput.match(/.{1,11}/g); // Each actual binary character is followed by 3 noise bits
+
+            if (binaryArray) {
+                for (let binary of binaryArray) {
+                    // Only take the first 8 bits and ignore the next 3 noise bits
+                    const actualBinary = binary.slice(0, 8);
+                    textOutput += String.fromCharCode(parseInt(actualBinary, 2));
+                }
+            }
+
+            document.getElementById("textOutput").innerText = textOutput;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Binary to Text Decoder</h1>
+        <textarea id="binaryInput" placeholder="Enter binary to decode..."></textarea><br>
+        <button onclick="decodeFromBinary()">Decode</button>
+        <a href="index.html"><button>Encode</button></a> <br> <br>
+        <a href="suprise.html"><button>Get Reward</button></a>
+
+        <h2>Decoded Text:</h2>
+        <p id="textOutput"></p>
+    </div>
+</body>
+</html>
